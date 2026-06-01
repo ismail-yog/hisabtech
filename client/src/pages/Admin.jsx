@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
-import { Trash2, Download, CheckCircle, Clock } from 'lucide-react';
+import { Trash2, Download, CheckCircle, Clock, MapPin } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
 const Admin = () => {
