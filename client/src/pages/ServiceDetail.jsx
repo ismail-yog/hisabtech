@@ -6,6 +6,7 @@ import { servicesData } from '../utils/servicesData';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useState } from 'react';
+import { API_BASE_URL } from '../config';
 
 const ServiceDetail = () => {
   const { slug } = useParams();
@@ -24,7 +25,7 @@ const ServiceDetail = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post('http://localhost:5000/api/contact', { ...data, service: service.title });
+      await axios.post(`${API_BASE_URL}/api/contact`, { ...data, service: service.title });
       setSubmitStatus('success');
       reset();
     } catch (err) {

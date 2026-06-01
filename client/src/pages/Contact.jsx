@@ -5,6 +5,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { servicesData } from '../utils/servicesData';
+import { API_BASE_URL } from '../config';
 
 const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -12,7 +13,7 @@ const Contact = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post('http://localhost:5000/api/contact', data);
+      await axios.post(`${API_BASE_URL}/api/contact`, data);
       setSubmitStatus('success');
       reset();
     } catch (err) {

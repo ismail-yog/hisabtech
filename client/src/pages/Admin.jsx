@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { Trash2, Download, CheckCircle, Clock } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const Admin = () => {
   const [token, setToken] = useState(localStorage.getItem('adminToken'));
@@ -21,7 +22,7 @@ const Admin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/login', { email, password });
+      const res = await axios.post(`${API_BASE_URL}/api/admin/login`, { email, password });
       setToken(res.data.token);
       localStorage.setItem('adminToken', res.data.token);
       setLoginError('');
@@ -39,7 +40,7 @@ const Admin = () => {
   const fetchLeads = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/leads', {
+      const res = await axios.get(`${API_BASE_URL}/api/admin/leads`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLeads(res.data);
@@ -51,7 +52,7 @@ const Admin = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/admin/leads/${id}`, {}, {
+      await axios.patch(`${API_BASE_URL}/api/admin/leads/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchLeads();
@@ -63,7 +64,7 @@ const Admin = () => {
   const deleteLead = async (id) => {
     if (!window.confirm('Are you sure you want to delete this lead?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/leads/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/admin/leads/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchLeads();
@@ -74,7 +75,7 @@ const Admin = () => {
 
   const exportCSV = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/export', {
+      const res = await axios.get(`${API_BASE_URL}/api/admin/export`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });

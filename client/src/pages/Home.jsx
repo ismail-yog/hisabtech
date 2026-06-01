@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { CheckCircle, Clock, Globe, ShieldCheck, ArrowRight, Briefcase } from 'lucide-react';
 import { servicesData } from '../utils/servicesData';
+import { API_BASE_URL } from '../config';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -63,7 +64,7 @@ const Home = () => {
         message: `Company: ${formData.companyName} is interested in ${formData.serviceNeeded}`,
       };
 
-      await axios.post('http://localhost:5000/api/contact', payload);
+      await axios.post(`${API_BASE_URL}/api/contact`, payload);
       setStatus({ type: 'success', message: 'Thank you! We will contact you shortly.' });
       setFormData({ companyName: '', serviceNeeded: servicesData[0]?.title || 'VAT Filing' });
     } catch (error) {
